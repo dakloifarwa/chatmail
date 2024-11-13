@@ -63,6 +63,11 @@ def run_cmd_options(parser):
         dest="ssh_host",
         help="specify an SSH host to deploy to; uses mail_domain from chatmail.ini by default"
     )
+   parser.add_argument(
+       "--ssh-port",
+       dest="ssh_port",
+       help="specify a port number for the SSH connection; uses port number 22 by default"
+   )
 
 
 def run_cmd(args, out):
@@ -81,7 +86,8 @@ def run_cmd(args, out):
     deploy_path = importlib.resources.files(__package__).joinpath("deploy.py").resolve()
     pyinf = "pyinfra --dry" if args.dry_run else "pyinfra"
     ssh_host = args.config.mail_domain if not args.ssh_host else args.ssh_host
-    cmd = f"{pyinf} --ssh-user root {ssh_host} {deploy_path} -y"
+    ssh_port = 22 if not args.ssh_port else args.ssh_port
+    cmd = f"{pyinf} --ssh-user root {ssh_host} {ssh_port} {deploy_path} -y"
     if version.parse(pyinfra.__version__) < version.parse("3"):
         out.red("Please re-run scripts/initenv.sh to update pyinfra to version 3.")
         return 1

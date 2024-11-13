@@ -48,8 +48,8 @@ class SSHExec:
     RemoteError = execnet.RemoteError
     FuncError = FuncError
 
-    def __init__(self, host, verbose=False, python="python3", timeout=60):
-        self.gateway = execnet.makegateway(f"ssh=root@{host}//python={python}")
+    def __init__(self, host, port=22, verbose=False, python="python3", timeout=60):
+        self.gateway = execnet.makegateway(f"ssh=root@{host} -p {port}//python={python}")
         self._remote_cmdloop_channel = bootstrap_remote(self.gateway, remote)
         self.timeout = timeout
         self.verbose = verbose

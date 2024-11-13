@@ -19,6 +19,10 @@
   a different SSH host than `mail_domain`
   ([#439](https://github.com/deltachat/chatmail/pull/439))
 
+- add argument to `cmdeploy run` for specifying
+  a different SSH port number than the SSH default (22)
+  ([#4XX](https://github.com/deltachat/chatmail/pull/4XX))
+
 - query autoritative nameserver to bypass DNS cache
   ([#424](https://github.com/deltachat/chatmail/pull/424))
 
